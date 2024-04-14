@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+<meta charset ="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Promise基本语法</title>
+</head>    
+<body>
+    <script>
+        // const p=new Promise(function(resolve,reject){
+        //     setTimeout(function(){
+        //         let data="读取数据成功";
+        //         resolve(data);
+        //     },1000);
+        // })
+
+        // p.then(function(value){
+        //     console.log(value);
+        // },function(reason){
+        //     console.error(reason);
+        // })
+
+        setTimeout(()=>alert("这是五秒的输出"),5000)
+        setTimeout(()=>alert("这是一秒的输出"),1000)
+    </script>
+</body>
+
+</html>

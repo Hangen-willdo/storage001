@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+"use strict"
+console.log('p1')
+setTimeout(()=>{
+   console.log('p2')
+},0)
+setTimeout(()=>{
+   console.log('p3')
+   new Promise(resolve=>{
+      console.log('p4')
+      resolve()
+   }).then(()=>{
+      console.log('p5')
+   })
+
+})
+
+new Promise(resolve=>{
+   console.log('p6')
+   new Promise(resolve=>{
+      console.log('p7')
+      resolve()
+   }).then(()=>{
+      console.log('p8')
+   })
+   resolve()
+}).then(()=>{
+   new Promise(resolve=>{
+      console.log('p9')
+      resolve()
+   }).then(()=>{
+      console.log('p10')
+   })
+   console.log('p11')
+})
+console.log('p12')
+
+</script>
+</html>
