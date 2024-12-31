@@ -1,0 +1,31 @@
+进入文件夹   $ cd 路径
+查看当前目录 $ pwd
+查看当前目录下的文件 $ ls
+创建文件夹   $ mkdir 文件夹名字
+创建文件      $ touch 文件名
+删除文件      $ rm 文件名.文件类型
+删除文件夹  $ rm -r 文件夹
+
+通过git将本地代码放到远程仓库托管，因此需要本地存储代码的仓库，以及远程仓库
+
+一、初始化本地仓库，首先选择一个空文件夹，或者是已经有代码的文件夹，鼠标右键点击"Open Git Bash here"
+输入$ git init。然后你会发现，该文件夹里多出一个“.git的隐藏文件”，不能删可以设置为隐藏 。
+
+二、建立github账户上远程仓库。
+
+三、建立本地仓库和远程仓库的连接。建立连接的方式就是配置SSH Key。SSH是Secure Shell的缩写，是建立在应用层基础上的安全协议。在git bash中输入$ ~/.ssh 查看电脑中是否有SSH Key，如果没有需要手动创建。根据显示的.ssh文件的路径，找到id_rsa.pub文件，全选其中的内容复制到github个人账户settings中的“SSH and GPG keys”中创建即可。建立成功后需要进行测试，在git bash 中输入$ ssh -T git@github.com。输入yes，然后如果出现Hi “用户名”! You’ve successfully authenticated, but GitHub does not provide shell access.就说明建立成功。这步操作是连接远程仓库，但由于有不同的本地仓库和远程仓库，因此，还需要将本地仓库和指定远程仓库连接。在本地仓库中打开git bash，然后输入$ git remote add 本地名字 远程仓库的SSH地址。本地名字用于在本地区分不同的远程仓库，也就是说给远程仓库起了一个本地的名字，方便在本地仓库更改代码时，上传到不同的远程仓库。
+例如，在github的遨游天下账户中有个storage001仓库，我新建了一个本地仓库“gitcode”文件夹，想将两者连接起来。那么，在“gitcode”中打开git bash，输入$git remote add  01storage git@github.com:Hangen-willdo/storage001.git ,两者成功建立连接。输入$git remote -v 查看发现有两个连接，一个fetch一个push,那么说明连接成功。如果不想再连接这个远程仓库，或者是改变GitHub用户名后原有的连接作废，那么在git bash中输入$ git remote remove 名字，以上面那个连接为例，如果要删除，那么需要输入$ git remote remove 01storage。
+
+四、上传文件 
+先把本地仓库的内容运上车暂存，通过push运到远程仓库。
+1、将更改后的文件保存到本地的暂存缓冲区内。$ git add -A  保存本地仓库内所有更改
+2、将暂存区的文件实际保存到仓库的历史记录中，或者简单理解为给你的上传的内容加备注，在GitHub仓库中可以看到这个备注。$ git commit -m "这是一次更新"   ，注意要加-m，否则会进入vim编辑器。
+3、将更新的文件推到远程仓库 。$ git push 远程仓库本地名 分支名 ，第一次推master分支时需要git push -u 名称 master，从而将本地master分支和远程master分支关联起来。如果报错，可以强制推送$ git push 名称 分支名 -f，这种方式会用本地数据覆盖远程数据，有损失数据的风险。
+
+如果一次发送中，注释写错了，可以输入$ git commit --amend -m "修改的内容"  进行更改，这种方式和重新addcommitpush的区别是，这种方式是在本地仓库中原有的那次提交的commit记录中直接更改，也会更改远程仓库的commit，但是远程仓库的这次commit记录不会改变。因此下次push可能会出现仓库不一致报错的情况，那么就需要用到-f强制推送。通过$ git log查看提交的commit记录。
+
+五、文件下拉
+在远程仓库修改后，直接用$ git pull storage001即可。或者$ git fetch+$ git merge，fetch拉取远程数据，merge执行合并，修改本地commit和文件。pull=fetch+merge。
+
+六、仓库克隆
+如果远程仓库不是你的，你没有权限，那么git remote git pull git push都是报错的，因为SSH码不一致，无法拉取。因此，需要用git clone拉取，好处是不用建立连接。当然，你有权限的远程仓库也可以用git clone  git@github.comdfl;jafa[ga[a   。
